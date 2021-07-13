@@ -41,22 +41,22 @@ void Main::_on_MobTimer_timeout() {
 	_mob_spawn_location->set_offset((real_t)_random->randi());
 
 	// Create a Mob instance and add it to the scene.
-	godot::Node *mob = mob_scene->instance();
+	Mob *mob = mob_scene->instance<Mob>();
 	add_child(mob);
 
 	// Set the mob's direction perpendicular to the path direction.
 	real_t direction = _mob_spawn_location->get_rotation() + (real_t)Math_PI / 2;
 
 	// Set the mob's position to a random location.
-	mob->set("position", _mob_spawn_location->get_position());
+	mob->set_position(_mob_spawn_location->get_position());
 
 	// Add some randomness to the direction.
 	direction += _random->randf_range((real_t)-Math_PI / 4, (real_t)Math_PI / 4);
-	mob->set("rotation", direction);
+	mob->set_rotation(direction);
 
 	// Choose the velocity for the mob.
 	godot::Vector2 velocity = godot::Vector2(_random->randf_range(150.0, 250.0), 0.0);
-	mob->set("linear_velocity", velocity.rotated(direction));
+	mob->set_linear_velocity(velocity.rotated(direction));
 }
 
 void Main::_on_ScoreTimer_timeout() {
